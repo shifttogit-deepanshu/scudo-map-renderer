@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-core.js"
+    type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-service.js"
+    type="text/javascript" charset="utf-8"></script>
+    <script src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"
+       type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="https://js.api.here.com/v3/3.1/mapsjs-ui.css" />
+    <title>MAP</title>
+</head>
+<body>
+    <div id="mapdiv" style="width: 100vw; height: 90vh"></div>
+    <div class="scale" ><input style="width: 100vw" name="slider" type="range" min="5" max="100"/></div>
+    <script>
+        var platform = new H.service.Platform({
+        'apikey': 'loS_wRn0_c9sagoIt2EgIG3gjoRLKAOsShdl6kB5CdU'
+        });
+
+        var maptypes = platform.createDefaultLayers();
+
+        var coords = {lat: 26.9167, lng: 75.8167}
+        
+        var map = new H.Map(document.getElementById('mapdiv'), maptypes.raster.satellite.map, {
+        center: {lat: 26.9167, lng: 75.8167},
+        zoom: 80
+        });
+
+       
+        var marker = new H.map.Marker(coords)
+
+        map.addObject(marker);
+
+            let radi 
+            var circle
+        document.getElementsByTagName('input').slider.addEventListener("change",()=>{
+            if(circle){
+                map.removeObject(circle)
+            }
+            radi = document.getElementsByTagName('input').slider.value
+            console.log(radi)
+            circle = new H.map.Circle({lat: 26.9167, lng: 75.8167}, radi);
+            map.addObject(circle);
+        })
+        
+        
+
+        var mapEvents = new H.mapevents.MapEvents(map);
+
+        
+        new H.mapevents.Behavior(mapEvents);
+    </script>
+</body>
+</html>
